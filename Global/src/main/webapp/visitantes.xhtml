@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="_template.xhtml">
+	<ui:define name="content">
+	
+	 		<p:messages id="messages" closable="true">
+	            <p:autoUpdate/>
+	        </p:messages>
+	        
+		<!-- TABELA -->
+		<h:form>
+			<div class="card">
+				<p:dataTable var="visitante" value="#{visitanteBean.list}" editable="true">
+					<p:ajax event="rowEdit" listener="#{visitanteBean.edit()}" update="messages"/>
+					
+					<p:column headerText="Image">
+						<img src="#{request.contextPath}#{visitante.imagePath}" style="width: 150px" />
+					</p:column>
+					
+					<p:column headerText="ID">
+						<h:outputText value="#{visitante.id}" />
+					</p:column>
+
+					<p:column headerText="Name">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{visitante.nome}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{visitante.nome}" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column headerText="dataNascimento">
+						<h:outputText value="#{visitante.dataNascimento}" />
+					</p:column>
+
+					<p:column headerText="CPF">
+						<h:outputText value="#{visitante.cpf}" />
+					</p:column>
+					
+					<p:column headerText="RG">
+						<h:outputText value="#{visitante.rg}" />
+					</p:column>
+					
+					<p:column headerText="digitoRg">
+						<h:outputText value="#{visitante.digitoRg}" />
+					</p:column>
+					
+					<p:column headerText="dataCadastro">
+						<h:outputText value="#{visitante.dataCadastro}" />
+					</p:column>
+					
+
+					
+					<p:column style="width:6rem">
+						<p:commandButton title="delete visitante" action="#{visitanteBean.delete(visitante)}" icon="pi pi-trash" styleClass="rounded-button ui-button-danger ui-button-flat" />
+					</p:column>
+					<p:column style="width:6rem">
+		                <p:rowEditor editTitle="Edit Visitante" cancelTitle="Cancel Edit" saveTitle="Save Visitante"/>
+		            </p:column>
+				</p:dataTable>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+
+
+
+</html>
